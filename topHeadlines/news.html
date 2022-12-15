@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+  <link rel="stylesheet" href="./news.css">
+</head>
+<body>
+    <div id="navbar">
+        <p><a href="../sports.html">Sports</a></p>
+        <p><a href="../technology.html">Technology</a></p>
+        <p><a href="../entertainment.html">Entertainment</a></p>
+        <input type="text" placeholder="Search News" id="input">
+        <button id="search" onclick="debounce(search,1000)">Search</button>
+    </div>
+    <h1>Today Headline News</h1>
+    <div id="top"></div>
+</body>
+</html>
+<script src="./news.js"></script>

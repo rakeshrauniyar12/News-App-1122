@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports News</title>
+    <style>
+         #navbar{
+            background-color: blueviolet;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        #navbar>p>a{
+            color: white;
+           
+            text-decoration: none;
+        }
+        #navbar>p{
+            padding-top: 6px;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+       
+           #top>div{
+            background-color: aquamarine;
+            display: flex;
+            gap: 10px;
+            margin: 20px 15px;
+        }
+        #top>div>div:nth-child(1)>img{
+            margin-top: 20px;
+           height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <p><a href="./topHeadlines/news.html">Home</a></p>
+        <p><a href="./technology.html">Technology</a></p>
+        <p><a href="./entertainment.html">Entertainment</a></p>
+    </div>
+    <div id="top"></div>
+    <div id="btn"></div>
+</body>
+</html>
+<script>
+    let data=[];
+    let getData = (page)=>{
+ let category=`https://newsapi.org/v2/top-headlines?page=${page}&category=sports&apiKey=fcd34a001606454d9a4b713c7e0784dc`;
+    fetch(category)
+.then((res)=>{
+    return res.json();
+}).then((res)=>{
+    // console.log(res.articles);
+   data=res.articles;
+   console.log(data);
+    renderDom(res.articles,0);
+})
+    }
+getData(1);
+let renderDom = (data,value)=>{
+    let cont = document.querySelector("#top");
+    cont.innerHTML="";
+    let start= value*5;
+    let end=start+5;
+   let data1=data.slice(start,end);
+     data1.forEach((el)=>{
+       let div = document.createElement("div");
+       let div1= document.createElement("div");
+       let div2= document.createElement("div");
+       let img=document.createElement("img");
+       img.src=el.urlToImage;
+       let h1=document.createElement("h1");
+       h1.innerText=el.title;
+       let p= document.createElement("p");
+       p.innerText=el.content;
+       let p1=document.createElement("p");
+       p1.innerText=el.description;
+       div.append(img);
+       div1.append(h1,p,p1);
+       div2.append(div,div1);
+       cont.append(div2);
+     })
+     btn(value-1)
+}
+let btn= (index)=>{
+    let btn1=document.querySelector("#btn");
+    btn1.innerHTML="";
+    if(index<6){
+        index=6
+    }
+    for(let r=index-5;r<index+5;r++){
+       let btn2= document.createElement("button");
+       btn2.innerText=r;
+       btn2.addEventListener("click",()=>{
+        getData(r)
+        renderDom(data,r);
+       
+       })
+       btn1.append(btn2);
+       
+    }
+}
+</script>
